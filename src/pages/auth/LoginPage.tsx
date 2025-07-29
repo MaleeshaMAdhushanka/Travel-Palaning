@@ -47,15 +47,9 @@ const LoginPage = () => {
         if(login.fulfilled.match(resultAction)){
             const userRole = resultAction.payload.user.role;
 
-            // Add debugging to check the role value
-            console.log("Login successful - User role:", userRole);
-
-            // Make role check case-insensitive
-            if (userRole && userRole.toLowerCase() === 'admin'){
-                console.log("Navigating to admin dashboard");
-                navigate("/admin-dashboard");
-            } else {
-                console.log("Navigating to user dashboard");
+            if (userRole === 'admin'){
+                navigate("/admin-dashboard")
+            }else {
                 navigate("/dashboard");
             }
         }
