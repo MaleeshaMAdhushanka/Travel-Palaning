@@ -1,3 +1,4 @@
+
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import axios from "axios";
 import {toast} from "sonner";
@@ -34,7 +35,7 @@ export const register = createAsyncThunk(
     async (userData : { email: string; password: string; name?: string},{ rejectWithValue}) => {
 
         try {
-           const response = await axios.post(`${API_URL}/auth/register`, userData);
+            const response = await axios.post(`${API_URL}/auth/register`, userData);
             toast.success('Registration successful! Please log in.');
             return response.data;
         } catch (error: any) {
@@ -59,14 +60,14 @@ export const login = createAsyncThunk(
             const {accessToken} = response.data;
             localStorage.setItem('accessToken', accessToken);
             //check for admin
-          const isAdmin = credentials.email === import.meta.env.VITE_ADMIN_EMAIL && credentials.password === import.meta.env.VITE_ADMIN_PASSWORD;
+            const isAdmin = credentials.email === import.meta.env.VITE_ADMIN_EMAIL && credentials.password === import.meta.env.VITE_ADMIN_PASSWORD;
 
             return {
                 accessToken,
-             user: {
+                user: {
                     email: credentials.email,
-                 role: isAdmin ? 'admin': 'user',
-             },
+                    role: isAdmin ? 'admin': 'user',
+                },
             };
 
             toast.success('Login successful!');
@@ -76,38 +77,38 @@ export const login = createAsyncThunk(
             toast.error(message);
             return rejectWithValue(message);
         }
-     }
-    );
+    }
+);
 
-    export const forgotPassword = createAsyncThunk(
-     'auth/forgotPassword',
-       async (email: string, { rejectWithValue }) => {
-         try {
+export const forgotPassword = createAsyncThunk(
+    'auth/forgotPassword',
+    async (email: string, { rejectWithValue }) => {
+        try {
             const response = await axios.post(`${API_URL}/auth/forgot-password`, { email });
             toast.success('If an account with that email exists, a password reset link has been sent.');
             return response.data;
-         } catch (error: any) {
+        } catch (error: any) {
             const message = error.response?.data?.message || 'Failed to process request';
             toast.error(message);
             return rejectWithValue(message);
-         }
-       }
+        }
+    }
 
-     );
-  export const resetPassword = createAsyncThunk(
-      'auth/resetPassword',
-      async ({ token, password }: { token: string; password: string }, { rejectWithValue }) => {
-          try {
+);
+export const resetPassword = createAsyncThunk(
+    'auth/resetPassword',
+    async ({ token, password }: { token: string; password: string }, { rejectWithValue }) => {
+        try {
             const response = await axios.post(`${API_URL}/auth/reset-password/${token}`, { password });
             toast.success('Password has been reset successfully.');
             return response.data;
-         } catch (error: any) {
+        } catch (error: any) {
             const message = error.response?.data?.message || 'Failed to reset password';
             toast.error(message);
             return rejectWithValue(message);
-         }
-     }
-  );
+        }
+    }
+);
 
 export const logout = createAsyncThunk(
     'auth/logout',
@@ -287,8 +288,3 @@ const authSlice = createSlice({
 export const { clearError, setRefreshedToken  } = authSlice.actions;
 
 export default authSlice.reducer;
-
-
-
-
-

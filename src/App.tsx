@@ -10,9 +10,12 @@ import ResetPassword from "./pages/auth/ResetPassword.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import AuthRoute from "./components/AuthRoute.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
-import AdminDashboard from "./pages/auth/AdminDasboard.tsx";
+import AdminDashboard from "./pages/auth/admin/AdminDasboard.tsx";
 import AdminRoute from "./components/AdminRoute.tsx";
 import Index from "./pages";
+import AddPackagePage from "./pages/auth/admin/AddPackage.tsx";
+import ViewPackagesPage from "./pages/auth/admin/ViewPackagesPage.tsx";
+import EditPackagePage from "./pages/auth/admin/EditPackagePage.tsx";
 
 // BrowserRouter is used in React applications to enable client-side routing. It provides the routing context needed for components like Link and Route from react-router-dom to work properly. Without BrowserRouter, navigation and route matching will not function, and components like Link will throw errors because they rely on the router context.
 /*
@@ -34,8 +37,20 @@ function App() {
                     <Route path="/register" element={<PublicRoute><RegisterPage/></PublicRoute>} />
                     <Route path="/forgot-password" element={<PublicRoute><ForgotPassword/></PublicRoute>} />
                     <Route path="/reset-password/:token" element={<PublicRoute><ResetPassword/></PublicRoute>} />
+
+                    {/*User naviagte the Dashbord*/}
                     <Route path="/dashboard" element={<AuthRoute> <Dashboard /> </AuthRoute>}/>
-                    <Route path="/admin-dashboard" element={<AdminRoute> <AdminDashboard /> </AdminRoute>}/>
+
+                    {/*Admin pages*/}
+                    <Route path="/admin-dashboard" element={<AdminRoute>{ <AdminDashboard /> }</AdminRoute>}/>
+                    <Route path="/admin/packages/add" element={<AdminRoute>{ <AddPackagePage /> }</AdminRoute>}/>
+                    <Route path="/admin/packages" element={<AdminRoute>{ <ViewPackagesPage /> }</AdminRoute>}/>
+                    <Route path="/admin/packages/edit/:id" element={<AdminRoute>{ <EditPackagePage /> }</AdminRoute>}/>
+
+
+
+
+
                     {/*<Route path="/profile" element={ <AuthRoute> <Profile/></AuthRoute>}/>*/}
                     <Route path="*" element={<NotFound />} />
                 </Routes>

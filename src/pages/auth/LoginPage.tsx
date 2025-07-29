@@ -1,9 +1,8 @@
-import * as React from "react";
+import { useState } from "react";
 import { TextField, Button, Typography, Paper, Box, Container, Divider, InputAdornment, IconButton } from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import {Link, useNavigate} from "react-router-dom";
-import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import type {AppDispatch, RootState} from "../../store";
 import {login} from "../../store/slices/authSlice.ts";

@@ -47,7 +47,7 @@ api.interceptors.response.use(
                 //Retry the original request with the new token
                 return api(originalRequest);
 
-            } catch (refreshError: any) {
+            } catch (refreshError: unknown) {
                 console.error('Unable to refresh token:', refreshError);
                 // If refresh fails, logout the user
                 store.dispatch(logout());
